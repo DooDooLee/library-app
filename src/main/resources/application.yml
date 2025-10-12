@@ -1,0 +1,43 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: "jdbc:h2:mem:library;MODE=MYSQL;NON_KEYWORDS=USER" # 기본적으로 user키워드가 예약어라서 키워드뺴야함 ㅇㅇ 우린 유저테이블 만들거라서
+    username: "sa"
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true #SQl를 JPA로 예쁘게 포맷팅 할것인가
+        show_sql: true #DB에 SQL날릴때 보여줄건가
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+--- #구분선 위 아래 옵션을 구분되게해줌
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: "jdbc:mysql://localhost:3306/library"
+    username: "root"
+    password: "1234"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none #스프링이 DB에 있는 테이블을 어떻게 처리할지
+    properties:
+      hibernate:
+        format_sql: true #SQl를 JPA로 예쁘게 포맷팅 할것인가
+        show_sql: true #DB에 SQL날릴때 보여줄건가
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        #이 옵션을 통해 DB마다 조금씩 다른 SQL를 JPA가 알아서 조정해준다.
+
+
+
